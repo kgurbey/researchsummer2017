@@ -68,7 +68,6 @@ function parser(str) {
 		return;
 	}
 
-	// console.log("l value is " + l);
 	//tokenising loop
 	var tokens = [{"statement": null}];
 	var liststobe = 0;
@@ -78,7 +77,6 @@ function parser(str) {
 	var not = false;
 	var lastchar = null;
 	for (var i = l; i < len; i++) {
-		// console.log("Step1");
 		var currchar = str.charAt(i);
 		switch (currchar) {
 			case " ":
@@ -145,7 +143,6 @@ function parser(str) {
 				}
 				break;
 			default:
-				// console.log("Step2");
 				if (lastchar !== null && lastchar !== "!" && lastchar !== "&" && lastchar !== "|"  && lastchar !== "(") {
 					window.alert("Syntax Error (at character " + (i + 1) + "): Invalid statement");
 					alarms.show();
@@ -169,7 +166,6 @@ function parser(str) {
 				}
 
 				var tokenized = token.split(";");
-				// console.log(tokenized);
 
 				if (currlist[0][tokenized[0]] === undefined)
 					currlist[0][tokenized[0]] = [];
@@ -177,7 +173,6 @@ function parser(str) {
 				var vtp = not ? tokenized[1] + "!" : tokenized[1];
 				currlist[0][tokenized[0]].push(vtp);
 				not = false;
-				// console.log("Step3");
 		}
 		lastchar = currchar;
 	}
@@ -203,7 +198,6 @@ function parser(str) {
 	// 	currlist[0][tokenized[0]].push(tokenized[1] + (not) ? "!" : "");
 	// 	not = false;
 	// }
-	// console.log(tokens);
 
 	var res = evalluate(tokens);
 	$(".dot").filter(function(index, d) {
@@ -295,14 +289,12 @@ function evalluate(tokens) {
 								}
 							}
 						}
-						// console.log("Step2");
 					}
 				}
 				for (var i = 0; i < resfuncs.length; i++) { // could be replaced with line 239
 					if (!resfuncs[i](d))
 						return false;
 				}
-				// console.log("Step3");
 				return true;	
 			};
 		} else {
@@ -576,13 +568,10 @@ var graph = function() {
 
 
 		$("#sb").click(function(){
-			// console.log("hello");
 		    parser($("textarea").val());
-		    // console.log("bye");
 		});
 
 		$(".graph").change(function() {
-			// console.log($(this).attr("value"));
 			var atttr = $(this).attr("value");
 			if ($(this).prop("checked"))
 				$("#" + atttr + ", circle." + atttr).show();
@@ -612,10 +601,8 @@ var height = $("#td4").height() - 2 - margin.top - margin.bottom;
 
 
 fakedata.forEach(function(realattr) {
-	// console.log(realattr + ": " + color(realattr));
 	linedict[realattr] = {"yScale": d3.scale.linear()
 										.range([height - 55, 0]),
-							// "lasttime":  new Date( Date.parse( "0000-00-00T00:00:00.000000" ) ),
 							"line": d3.svg.line()
 										.interpolate("linear")
 										// .defined(function(d) {
